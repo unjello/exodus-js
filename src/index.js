@@ -416,7 +416,6 @@ const initThreeJs = () => {
   scene.add(mesh);
 
   renderer = new THREE.WebGLRenderer();
-  renderer.debug.checkShaderErrors = true;
   renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
   canvas.appendChild(renderer.domElement);
   uniforms.resolution.value.x = width;
