@@ -7,14 +7,11 @@ const helloWorld = () => {
     Audio by Jakub Argasiński (http://twitter.com/argasek)`);
 };
 
-let startTime;
 let uniforms = {};
-let renderer, scene, camera;
+let renderer, scene, camera, sound;
 
 const renderScene = () => {
-  const elapsedMilliseconds = Date.now() - startTime;
-  const elapsedSeconds = elapsedMilliseconds / 100000;
-  uniforms.time.value = 60 * elapsedSeconds;
+  uniforms.time.value = sound.context.currentTime - sound.startTime;
   renderer.render(scene, camera);
 };
 
@@ -24,6 +21,7 @@ const animate = () => {
 };
 
 const start = () => {
+  sound.play();
   window.requestAnimationFrame(animate);
 };
 
@@ -35,7 +33,6 @@ const initThreeJs = () => {
   camera = new THREE.Camera();
   camera.position.z = 1;
   scene = new THREE.Scene();
-  startTime = new Date();
   uniforms = {
     time: { type: 'f', value: 1.0 },
     resolution: { type: 'v2', value: new THREE.Vector2() }
@@ -52,7 +49,16 @@ const initThreeJs = () => {
   uniforms.resolution.value.x = width;
   uniforms.resolution.value.y = height;
   renderer.setSize(width, height);
-  start();
+
+  const listener = new THREE.AudioListener();
+  sound = new THREE.Audio(listener);
+  const audioLoader = new THREE.AudioLoader();
+  audioLoader.load('music.ogg', function (buffer) {
+    sound.setBuffer(buffer);
+    sound.setLoop(false);
+    sound.setVolume(1.0);
+    start();
+  });
 };
 
 const createApp = () => {
