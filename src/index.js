@@ -50,6 +50,13 @@ const initThreeJs = () => {
   uniforms.resolution.value.y = height;
   renderer.setSize(width, height);
 
+  window.addEventListener('resize', () => {
+    const canvas = document.getElementById('canvas');
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    renderer.setSize(width, height);
+  }, false);
+
   const listener = new THREE.AudioListener();
   sound = new THREE.Audio(listener);
   const audioLoader = new THREE.AudioLoader();
