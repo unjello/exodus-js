@@ -38,8 +38,11 @@ const initThreeJs = () => {
     resolution: { type: 'v2', value: new THREE.Vector2() }
   };
 
-  const material =
-      new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader });
+  const material = new THREE.ShaderMaterial({
+    uniforms,
+    vertexShader,
+    fragmentShader
+  });
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
   scene.add(mesh);
 
@@ -50,12 +53,16 @@ const initThreeJs = () => {
   uniforms.resolution.value.y = height;
   renderer.setSize(width, height);
 
-  window.addEventListener('resize', () => {
-    const canvas = document.getElementById('canvas');
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    renderer.setSize(width, height);
-  }, false);
+  window.addEventListener(
+    'resize',
+    () => {
+      const canvas = document.getElementById('canvas');
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      renderer.setSize(width, height);
+    },
+    false
+  );
 
   const listener = new THREE.AudioListener();
   sound = new THREE.Audio(listener);
@@ -68,8 +75,31 @@ const initThreeJs = () => {
   });
 };
 
+const fixIOS = () => {
+  // ensure we are at top on iPhone in landscape
+  // taken from audiograph.xyz by @mattdesl
+  const isIOS = /(iPhone|iPad)/i.test(navigator.userAgent);
+  if (isIOS) {
+    const fixScroll = () => {
+      setTimeout(() => {
+        window.scrollTo(0, 1);
+      }, 500);
+    };
+
+    fixScroll();
+    window.addEventListener(
+      'orientationchange',
+      () => {
+        fixScroll();
+      },
+      false
+    );
+  }
+};
+
 const createApp = () => {
   helloWorld();
+  fixIOS();
   initThreeJs();
 };
 
