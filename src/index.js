@@ -11,7 +11,7 @@ let uniforms = {};
 let renderer, scene, camera, sound;
 
 const renderScene = () => {
-  uniforms.time.value = sound.context.currentTime - sound.startTime;
+  uniforms.time.value = sound.context.currentTime; // - sound.startTime;
   renderer.render(scene, camera);
 };
 
@@ -21,7 +21,7 @@ const animate = () => {
 };
 
 const start = () => {
-  sound.play();
+  // sound.play();
   window.requestAnimationFrame(animate);
 };
 
@@ -38,11 +38,8 @@ const initThreeJs = () => {
     resolution: { type: 'v2', value: new THREE.Vector2() }
   };
 
-  const material = new THREE.ShaderMaterial({
-    uniforms,
-    vertexShader,
-    fragmentShader
-  });
+  const material =
+      new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader });
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
   scene.add(mesh);
 
@@ -52,17 +49,14 @@ const initThreeJs = () => {
   uniforms.resolution.value.x = width;
   uniforms.resolution.value.y = height;
   renderer.setSize(width, height);
+  renderer.debug.checkShaderErrors = true;
 
-  window.addEventListener(
-    'resize',
-    () => {
-      const canvas = document.getElementById('canvas');
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
-      renderer.setSize(width, height);
-    },
-    false
-  );
+  window.addEventListener('resize', () => {
+    const canvas = document.getElementById('canvas');
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    renderer.setSize(width, height);
+  }, false);
 
   const listener = new THREE.AudioListener();
   sound = new THREE.Audio(listener);
@@ -87,13 +81,9 @@ const fixIOS = () => {
     };
 
     fixScroll();
-    window.addEventListener(
-      'orientationchange',
-      () => {
-        fixScroll();
-      },
-      false
-    );
+    window.addEventListener('orientationchange', () => {
+      fixScroll();
+    }, false);
   }
 };
 
