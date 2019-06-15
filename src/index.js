@@ -1,5 +1,5 @@
 const THREE = require('three');
-const { vertexShader, fragmentShader } = require('./shaders');
+const { vertexShader, fragmentShader2 } = require('./shaders');
 
 const helloWorld = () => {
   console.log(`👼 exodus-js
@@ -8,10 +8,11 @@ const helloWorld = () => {
 };
 
 let uniforms = {};
-let renderer, scene, camera, sound;
+let renderer, scene, camera, sound, startTime;
 
 const renderScene = () => {
-  uniforms.time.value = sound.context.currentTime; // - sound.startTime;
+  uniforms.time.value = (Date.now() - startTime) /
+      1000.0; // sound.context.currentTime; // - sound.startTime;
   renderer.render(scene, camera);
 };
 
@@ -22,6 +23,7 @@ const animate = () => {
 
 const start = () => {
   // sound.play();
+  startTime = Date.now();
   window.requestAnimationFrame(animate);
 };
 
@@ -38,8 +40,8 @@ const initThreeJs = () => {
     resolution: { type: 'v2', value: new THREE.Vector2() }
   };
 
-  const material =
-      new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader });
+  const material = new THREE.ShaderMaterial(
+    { uniforms, vertexShader, fragmentShader: fragmentShader2 });
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
   scene.add(mesh);
 
