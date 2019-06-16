@@ -58,6 +58,8 @@ const initThreeJs = () => {
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
     renderer.setSize(width, height);
+    uniforms.resolution.value.x = width;
+    uniforms.resolution.value.y = height;
   }, false);
 
   const listener = new THREE.AudioListener();
