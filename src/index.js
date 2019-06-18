@@ -27,10 +27,19 @@ const start = () => {
   window.requestAnimationFrame(animate);
 };
 
-const initThreeJs = () => {
+const resize = () => {
   const canvas = document.getElementById('canvas');
   const width = canvas.clientWidth;
   const height = canvas.clientHeight;
+  renderer.setSize(width, height);
+  uniforms.resolution.value.x = width;
+  uniforms.resolution.value.y = height;
+
+  renderer.setSize(width, height);
+};
+
+const initThreeJs = () => {
+  const canvas = document.getElementById('canvas');
 
   camera = new THREE.Camera();
   camera.position.z = 1;
@@ -48,19 +57,9 @@ const initThreeJs = () => {
   renderer = new THREE.WebGLRenderer();
   renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
   canvas.appendChild(renderer.domElement);
-  uniforms.resolution.value.x = width;
-  uniforms.resolution.value.y = height;
-  renderer.setSize(width, height);
   renderer.debug.checkShaderErrors = true;
-
-  window.addEventListener('resize', () => {
-    const canvas = document.getElementById('canvas');
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    renderer.setSize(width, height);
-    uniforms.resolution.value.x = width;
-    uniforms.resolution.value.y = height;
-  }, false);
+  resize();
+  window.addEventListener('resize', resize, false);
 
   const listener = new THREE.AudioListener();
   sound = new THREE.Audio(listener);
