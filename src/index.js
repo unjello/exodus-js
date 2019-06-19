@@ -1,4 +1,6 @@
 const THREE = require('three');
+const tweenr = require('tweenr')();
+const css = require('dom-css');
 const { vertexShader, fragmentShader2 } = require('./shaders');
 
 const helloWorld = () => {
@@ -90,10 +92,35 @@ const fixIOS = () => {
   }
 };
 
+const getChildren = element => {
+  const children = Array.prototype.slice.call(element.querySelectorAll('div'));
+  if (children.length === 0) children.push(element);
+  return children;
+};
+
+const update = ev => {
+  const tween = ev.target;
+  css(tween.element, { opacity: tween.opacity });
+};
+
+const animateIn = (element) => {
+  const duration = 1.5;
+  let delay = 0;
+  getChildren(element).forEach((child, i) => {
+    const tween = { opacity: 0, element: child };
+    update({ target: tween });
+    tweenr.to(tween, { delay, opacity: 1, duration, ease: 'quadOut' })
+      .on('update', update);
+    delay += 0.1;
+  });
+};
+
 const createApp = () => {
   helloWorld();
   fixIOS();
   initThreeJs();
+  const header = document.querySelector('.header-container');
+  animateIn(header);
 };
 
 createApp();

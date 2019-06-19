@@ -12,8 +12,10 @@
   "dependencies": {
     "budo": "^11.6.2",
     "clean-css": "^4.2.1",
+    "dom-css": "^2.1.0",
     "html-minifier": "^4.0.0",
-    "three": "^0.104.0"
+    "three": "^0.104.0",
+    "tweenr": "^2.2.1"
   },
   "semistandard": {
     "globals": [
