@@ -103,15 +103,19 @@ const update = ev => {
   css(tween.element, { opacity: tween.opacity });
 };
 
-const animateIn = (element) => {
+const animateIn = (element, cb = () => {}) => {
   const duration = 1.5;
   let delay = 0;
-  getChildren(element).forEach((child, i) => {
+  const children = getChildren(element);
+  children.forEach((child, i) => {
     const tween = { opacity: 0, element: child };
     update({ target: tween });
-    tweenr.to(tween, { delay, opacity: 1, duration, ease: 'quadOut' })
+    const t = tweenr.to(tween, { delay, opacity: 1, duration, ease: 'quadOut' })
       .on('update', update);
     delay += 0.12;
+    if (i === children.length - 1) {
+      t.on('complete', cb);
+    }
   });
 };
 
@@ -120,7 +124,9 @@ const createApp = () => {
   fixIOS();
   initThreeJs();
   const header = document.querySelector('.header-container');
-  animateIn(header);
+  animateIn(header, () => {
+    console.log('done');
+  });
 };
 
 createApp();
