@@ -8,12 +8,18 @@
   src: url("./pier-bold.otf");
 }
 
+@font-face {
+  font-family: "NotoSans";
+  src: url("./NotoSans-Regular.ttf");
+}
+
 body {
   -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape */
   margin: 0;
   background: #fff;
   color: #3c3c3c;
   overflow: hidden;
+  font-family: "NotoSans", "Helvetica", sans-serif;
   font-size: 16px;
 }
 
@@ -35,6 +41,23 @@ body {
   text-align: center;
 }
 
+#intro {
+  position: absolute;
+  display: table;
+  top: 0;
+  left: 0;
+  margin: auto;
+  margin-top: 200px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+#intro-card {
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .disable-pointer {
   pointer-events: none;
 }
@@ -53,9 +76,10 @@ body {
 .header {
   font-family: "PierBold";
   font-size: 70px;
-  letter-spacing: -2px;
+  letter-spacing: -5px;
   text-transform: uppercase;
-  line-height: 100px;
+  line-height: 52px;
+  text-align: left;
 }
 
 .subheader {
@@ -67,7 +91,7 @@ body {
   margin: 0;
   padding: 0;
   opacity: 0.5;
-  margin-top: -15px;
+  margin-top: -2px;
   position: relative;
 }
 
@@ -104,4 +128,71 @@ a::after {
 a:hover::after {
   height: 4px;
   bottom: -4px;
+}
+
+.volume-icon {
+  padding: 0;
+  margin: 0;
+  width: 50px;
+  height: 50px;
+  background-size: 50px 50px;
+  display: inline-block;
+  background-repeat: none;
+  -webkit-animation: flickerAnimation 1.5s infinite;
+  -moz-animation: flickerAnimation 1.5s infinite;
+  -o-animation: flickerAnimation 1.5s infinite;
+  animation: flickerAnimation 1.5s infinite;
+}
+
+.volume-icon {
+  background-image: url("./headphones.svg");
+}
+
+.intro-volume {
+  display: none;
+}
+
+@keyframes flickerAnimation {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-o-keyframes flickerAnimation {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-moz-keyframes flickerAnimation {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes flickerAnimation {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
