@@ -106,6 +106,7 @@ const update = ev => {
 const animateIn = (element, cb = () => {}) => {
   const duration = 1.5;
   let delay = 0;
+  element.style.display = 'block';
   const children = getChildren(element);
   children.forEach((child, i) => {
     const tween = { opacity: 0, element: child };
@@ -124,8 +125,9 @@ const createApp = () => {
   fixIOS();
   initThreeJs();
   const header = document.querySelector('.header-container');
+  const introVolume = document.querySelector('.intro-volume');
   animateIn(header, () => {
-    console.log('done');
+    animateIn(introVolume);
   });
 };
 
