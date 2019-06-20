@@ -111,7 +111,7 @@ const animateIn = (element) => {
     update({ target: tween });
     tweenr.to(tween, { delay, opacity: 1, duration, ease: 'quadOut' })
       .on('update', update);
-    delay += 0.1;
+    delay += 0.12;
   });
 };
 
