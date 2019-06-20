@@ -120,6 +120,23 @@ const animateIn = (element, cb = () => {}) => {
   });
 };
 
+const animateOut = (element, cb = () => {}) => {
+  const duration = 1.5;
+  let delay = 0;
+  element.style.display = 'block';
+  const children = getChildren(element).reverse();
+  children.forEach((child, i) => {
+    const tween = { opacity: 1, element: child };
+    update({ target: tween });
+    const t = tweenr.to(tween, { delay, opacity: 0, duration, ease: 'quadOut' })
+      .on('update', update);
+    delay += 0.12;
+    if (i === children.length - 1) {
+      t.on('complete', cb);
+    }
+  });
+};
+
 const createApp = () => {
   helloWorld();
   fixIOS();
@@ -127,7 +144,7 @@ const createApp = () => {
   const header = document.querySelector('.header-container');
   const introVolume = document.querySelector('.intro-volume');
   animateIn(header, () => {
-    animateIn(introVolume);
+    animateIn(introVolume, () => { animateOut(introVolume); });
   });
 };
 
