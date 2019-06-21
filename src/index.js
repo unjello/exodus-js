@@ -103,9 +103,9 @@ const update = ev => {
   css(tween.element, { opacity: tween.opacity });
 };
 
-const animateIn = (element, cb = () => {}) => {
+const animateIn = (element, opt = {}, cb = () => {}) => {
   const duration = 1.5;
-  let delay = 0;
+  let delay = opt.delay || 0;
   element.style.display = 'block';
   const children = getChildren(element);
   children.forEach((child, i) => {
@@ -143,8 +143,9 @@ const createApp = () => {
   initThreeJs();
   const header = document.querySelector('.header-container');
   const introVolume = document.querySelector('.intro-volume');
-  animateIn(header, () => {
-    animateIn(introVolume, () => { animateOut(introVolume); });
+  animateIn(header);
+  animateIn(introVolume, { delay: 0.5 }, () => {
+    animateOut(introVolume);
   });
 };
 
