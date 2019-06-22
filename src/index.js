@@ -143,9 +143,12 @@ const createApp = () => {
   initThreeJs();
   const header = document.querySelector('.header-container');
   const introVolume = document.querySelector('.intro-volume');
+  const introStart = document.querySelector('.intro-start');
   animateIn(header);
   animateIn(introVolume, { delay: 0.5 }, () => {
-    animateOut(introVolume);
+    animateOut(introVolume, () => {
+      animateIn(introStart);
+    });
   });
 };
 

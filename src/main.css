@@ -154,6 +154,9 @@ a:hover::after {
 .intro-volume {
   display: none;
 }
+.intro-start {
+  display: none;
+}
 
 @keyframes flickerAnimation {
   0% {
@@ -198,4 +201,28 @@ a:hover::after {
   100% {
     transform: scale(1);
   }
+}
+
+.spacebar {
+  position: relative;
+  z-index: 1;
+  font-family: "Courier", monospace;
+  padding: 9px 10px 9px 9px;
+  margin: 0px 4px;
+}
+
+.spacebar:before {
+  display: inline;
+  content: " ";
+  /*background: #dddddd;*/
+  border-radius: 3px;
+  box-sizing: border-box;
+  border: 2px solid #3c3c3c;
+  opacity: 0.2;
+  width: 100%;
+  z-index: -10;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
