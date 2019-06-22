@@ -2,7 +2,7 @@ import './main.css';
 const THREE = require('three');
 const tweenr = require('tweenr')();
 const css = require('dom-css');
-const { vertexShader, fragmentShader2 } = require('./shaders');
+const {vertexShader, fragmentShader2} = require('./shaders');
 const helloWorld = () => {
   console.log(`👼 exodus-js
     Created by Andrzej Lichnerowicz (http://twitter.com/unjello/)
@@ -14,7 +14,7 @@ let renderer, scene, camera, sound, startTime;
 
 const renderScene = () => {
   uniforms.time.value = (Date.now() - startTime) /
-      1000.0; // sound.context.currentTime; // - sound.startTime;
+      1000.0;  // sound.context.currentTime; // - sound.startTime;
   renderer.render(scene, camera);
 };
 
@@ -47,12 +47,12 @@ const initThreeJs = () => {
   camera.position.z = 1;
   scene = new THREE.Scene();
   uniforms = {
-    time: { type: 'f', value: 1.0 },
-    resolution: { type: 'v2', value: new THREE.Vector2() }
+    time: {type: 'f', value: 1.0},
+    resolution: {type: 'v2', value: new THREE.Vector2()}
   };
 
   const material = new THREE.ShaderMaterial(
-    { uniforms, vertexShader, fragmentShader: fragmentShader2 });
+      {uniforms, vertexShader, fragmentShader: fragmentShader2});
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
   scene.add(mesh);
 
@@ -66,7 +66,7 @@ const initThreeJs = () => {
   const listener = new THREE.AudioListener();
   sound = new THREE.Audio(listener);
   const audioLoader = new THREE.AudioLoader();
-  audioLoader.load('music.ogg', function (buffer) {
+  audioLoader.load('music.ogg', function(buffer) {
     sound.setBuffer(buffer);
     sound.setLoop(false);
     sound.setVolume(1.0);
@@ -100,7 +100,7 @@ const getChildren = element => {
 
 const update = ev => {
   const tween = ev.target;
-  css(tween.element, { opacity: tween.opacity });
+  css(tween.element, {opacity: tween.opacity});
 };
 
 const animateIn = (element, opt = {}, cb = () => {}) => {
@@ -109,10 +109,10 @@ const animateIn = (element, opt = {}, cb = () => {}) => {
   element.style.display = 'block';
   const children = getChildren(element);
   children.forEach((child, i) => {
-    const tween = { opacity: 0, element: child };
-    update({ target: tween });
-    const t = tweenr.to(tween, { delay, opacity: 1, duration, ease: 'quadOut' })
-      .on('update', update);
+    const tween = {opacity: 0, element: child};
+    update({target: tween});
+    const t = tweenr.to(tween, {delay, opacity: 1, duration, ease: 'quadOut'})
+                  .on('update', update);
     delay += 0.12;
     if (i === children.length - 1) {
       t.on('complete', cb);
@@ -126,10 +126,10 @@ const animateOut = (element, cb = () => {}) => {
   element.style.display = 'block';
   const children = getChildren(element).reverse();
   children.forEach((child, i) => {
-    const tween = { opacity: 1, element: child };
-    update({ target: tween });
-    const t = tweenr.to(tween, { delay, opacity: 0, duration, ease: 'quadOut' })
-      .on('update', update);
+    const tween = {opacity: 1, element: child};
+    update({target: tween});
+    const t = tweenr.to(tween, {delay, opacity: 0, duration, ease: 'quadOut'})
+                  .on('update', update);
     delay += 0.12;
     if (i === children.length - 1) {
       t.on('complete', cb);
@@ -145,9 +145,15 @@ const createApp = () => {
   const introVolume = document.querySelector('.intro-volume');
   const introStart = document.querySelector('.intro-start');
   animateIn(header);
-  animateIn(introVolume, { delay: 0.5 }, () => {
+  animateIn(introVolume, {delay: 0.5}, () => {
     animateOut(introVolume, () => {
-      animateIn(introStart);
+      animateIn(introStart, {}, () => {
+        window.addEventListener('keydown', (ev) => {
+          if (ev.keyCode === 32) {
+            return false;
+          }
+        });
+      });
     });
   });
 };
