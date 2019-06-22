@@ -6,7 +6,11 @@ const { vertexShader, fragmentShader, fragmentShader2 } = require('./shaders');
 const helloWorld = () => {
   console.log(`👼 exodus-js
     Created by Andrzej Lichnerowicz (http://twitter.com/unjello/)
-    Audio by Jakub Argasiński (http://twitter.com/argasek)`);
+    Audio by Jakub Argasiński (http://twitter.com/argasek)
+      Huge thanks for splash-screen and WebGL layout inspirations to 
+      Matt DesLauriers (https://twitter.com/mattdesl)
+      and his audiograph project (https://github.com/mattdesl/audiograph.xyz)
+      it's where portions of code, fonts and volume icon are from.`);
 };
 
 let uniforms = {};
