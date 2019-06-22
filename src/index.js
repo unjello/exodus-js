@@ -2,7 +2,7 @@ import './main.css';
 const THREE = require('three');
 const tweenr = require('tweenr')();
 const css = require('dom-css');
-const { vertexShader, fragmentShader2 } = require('./shaders');
+const { vertexShader, fragmentShader, fragmentShader2 } = require('./shaders');
 const helloWorld = () => {
   console.log(`👼 exodus-js
     Created by Andrzej Lichnerowicz (http://twitter.com/unjello/)
@@ -24,7 +24,6 @@ const animate = () => {
 };
 
 const start = () => {
-  // sound.play();
   startTime = Date.now();
   window.requestAnimationFrame(animate);
 };
@@ -72,6 +71,14 @@ const initThreeJs = () => {
     sound.setVolume(1.0);
     start();
   });
+};
+
+const startIntro = () => {
+  const material = new THREE.ShaderMaterial(
+    { uniforms, vertexShader, fragmentShader: fragmentShader });
+  startTime = Date.now();
+  scene.overrideMaterial = material;
+  sound.play();
 };
 
 const fixIOS = () => {
@@ -150,6 +157,10 @@ const createApp = () => {
       animateIn(introStart, {}, () => {
         window.addEventListener('keydown', (ev) => {
           if (ev.keyCode === 32) {
+            [header, introStart, introVolume].forEach(e => {
+              e.style.display = 'none';
+            });
+            startIntro();
             return false;
           }
         });
