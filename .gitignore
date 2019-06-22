@@ -3,8 +3,5 @@ bower_components
 node_modules
 *.log
 .DS_Store
-.zip
-public/bundle.css
-public/bundle.js
-public/index.html
-app.zip
+.cache/
+dist/

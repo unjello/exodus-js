@@ -1,8 +1,8 @@
+import './main.css';
 const THREE = require('three');
 const tweenr = require('tweenr')();
 const css = require('dom-css');
 const { vertexShader, fragmentShader2 } = require('./shaders');
-
 const helloWorld = () => {
   console.log(`👼 exodus-js
     Created by Andrzej Lichnerowicz (http://twitter.com/unjello/)

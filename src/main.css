@@ -1,16 +1,16 @@
 @font-face {
   font-family: "Pier";
-  src: url("./pier-regular.otf");
+  src: url("./fonts/pier-regular.otf");
 }
 
 @font-face {
   font-family: "PierBold";
-  src: url("./pier-bold.otf");
+  src: url("./fonts/pier-bold.otf");
 }
 
 @font-face {
   font-family: "NotoSans";
-  src: url("./NotoSans-Regular.ttf");
+  src: url("./fonts/NotoSans-Regular.ttf");
 }
 
 body {
@@ -148,7 +148,7 @@ a:hover::after {
 }
 
 .volume-icon {
-  background-image: url("./headphones.svg");
+  background-image: url("./svg/headphones.svg");
 }
 
 .intro-volume {
