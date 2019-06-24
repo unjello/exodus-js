@@ -30,7 +30,7 @@
     "semistandard": "^13.0.1"
   },
   "scripts": {
-    "start": "parcel src/index.html"
+    "start": "parcel --host 0.0.0.0 src/index.html"
   },
   "staticFiles": {
     "staticPath": "public",
