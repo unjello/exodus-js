@@ -54,7 +54,7 @@ const initThreeJs = () => {
     resolution: { type: 'v2', value: new THREE.Vector2() }
   };
 
-  const material = new THREE.ShaderMaterial(
+  const material = new THREE.RawShaderMaterial(
     { uniforms, vertexShader, fragmentShader: fragmentShader2 });
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
   scene.add(mesh);
