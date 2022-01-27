@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "dom-css": "^2.1.0",
-    "three": "^0.104.0",
+    "three": "^0.137.0",
     "tweenr": "^2.2.1"
   },
   "semistandard": {
